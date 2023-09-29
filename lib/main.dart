@@ -9,8 +9,6 @@ import 'package:whatsapp_ui/feature/landing/screens/landing_screen.dart';
 import 'package:whatsapp_ui/firebase_options.dart';
 import 'package:whatsapp_ui/router.dart';
 import 'package:whatsapp_ui/screens/mobile_layout_screen.dart';
-import 'package:whatsapp_ui/screens/web_layout_screen.dart';
-import 'package:whatsapp_ui/utils/responsive_layout.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -33,10 +31,11 @@ class MyApp extends ConsumerWidget {
       ),
       home: ref.watch(userauthProvider).when(
             data: (user) {
+              print(user);
               if (user == null) {
-                return LandingScreen();
+                return const LandingScreen();
               }
-              return MobileLayoutScreen();
+              return const MobileLayoutScreen();
             },
             error: (error, stackTrace) {
               return ErrorScreen(error: error.toString());
