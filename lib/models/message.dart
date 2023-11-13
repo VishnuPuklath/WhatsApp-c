@@ -10,6 +10,9 @@ class Message {
   final DateTime timeSent;
   final String messageId;
   final bool isSeen;
+  final String repliedMessage;
+  final String repliedTo;
+  final MessageEnum repliedMessageType;
   Message({
     required this.senderId,
     required this.receiverId,
@@ -18,6 +21,9 @@ class Message {
     required this.timeSent,
     required this.messageId,
     required this.isSeen,
+    required this.repliedMessage,
+    required this.repliedTo,
+    required this.repliedMessageType,
   });
 
   Message copyWith({
@@ -28,6 +34,9 @@ class Message {
     DateTime? timeSent,
     String? messageId,
     bool? isSeen,
+    String? repliedMessage,
+    String? repliedTo,
+    MessageEnum? repliedMessageType,
   }) {
     return Message(
       senderId: senderId ?? this.senderId,
@@ -37,6 +46,9 @@ class Message {
       timeSent: timeSent ?? this.timeSent,
       messageId: messageId ?? this.messageId,
       isSeen: isSeen ?? this.isSeen,
+      repliedMessage: repliedMessage ?? this.repliedMessage,
+      repliedTo: repliedTo ?? this.repliedTo,
+      repliedMessageType: repliedMessageType ?? this.repliedMessageType,
     );
   }
 
@@ -49,6 +61,9 @@ class Message {
       'timeSent': timeSent.millisecondsSinceEpoch,
       'messageId': messageId,
       'isSeen': isSeen,
+      'repliedMessage': repliedMessage,
+      'repliedTo': repliedTo,
+      'repliedMessageType': repliedMessageType.type,
     };
   }
 
@@ -61,36 +76,9 @@ class Message {
       timeSent: DateTime.fromMillisecondsSinceEpoch(map['timeSent']),
       messageId: map['messageId'] ?? '',
       isSeen: map['isSeen'] ?? false,
+      repliedMessage: map['repliedMessage'] ?? '',
+      repliedTo: map['repliedTo'] ?? '',
+      repliedMessageType: (map['repliedMessageType'] as String).toEnum(),
     );
-  }
-
-  @override
-  String toString() {
-    return 'Message(senderId: $senderId, receiverId: $receiverId, text: $text, type: $type, timeSent: $timeSent, messageId: $messageId, isSeen: $isSeen)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(this, other)) return true;
-
-    return other is Message &&
-        other.senderId == senderId &&
-        other.receiverId == receiverId &&
-        other.text == text &&
-        other.type == type &&
-        other.timeSent == timeSent &&
-        other.messageId == messageId &&
-        other.isSeen == isSeen;
-  }
-
-  @override
-  int get hashCode {
-    return senderId.hashCode ^
-        receiverId.hashCode ^
-        text.hashCode ^
-        type.hashCode ^
-        timeSent.hashCode ^
-        messageId.hashCode ^
-        isSeen.hashCode;
   }
 }
